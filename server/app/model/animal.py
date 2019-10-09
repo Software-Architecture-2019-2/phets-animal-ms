@@ -12,7 +12,7 @@ class Animal(db.Model):
     birthdate = db.Column(db.Date)
     type_id = db.Column(db.SmallInteger, db.ForeignKey(
         'animal_type.id'), nullable=False)
-    animal_type = db.relationship("AnimalType")
+    animal_type = db.relationship("AnimalType", lazy="subquery")
 
     def __repr__(self):
         return "<Animal(id='%d', name='%s', type='%s')>" % (

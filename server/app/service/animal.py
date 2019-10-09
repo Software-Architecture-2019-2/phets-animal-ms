@@ -8,12 +8,8 @@ class AnimalService:
         return Animal.query.all()
 
     @staticmethod
-    def getFiltered(*kargs):
-        return Animal.query.filter_by(kargs)
-
-    @staticmethod
     def getById(id):
-        return Animal.query.filter_by(id=id).one()
+        return Animal.query.get(id)
 
     @staticmethod
     def save(entity):
@@ -27,6 +23,15 @@ class AnimalService:
         if saved:
             db.session.merge(entity)
             db.session.flush()
+            db.session.commit()
+            return saved
+        return None
+
+    @staticmethod
+    def delete(id):
+        saved = db.session.query(Animal).get(id)
+        if saved:
+            db.session.delete(saved)
             db.session.commit()
             return saved
         return None
