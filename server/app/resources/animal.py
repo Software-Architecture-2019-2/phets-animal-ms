@@ -36,4 +36,4 @@ class AnimalListResource(Resource):
     def post(self):
         animal = animal_schema.load(request.json)
         AnimalService.save(animal)
-        return animal_schema.dump(animal), 200
+        return animal_schema.dump(animal), 201

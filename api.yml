@@ -1,0 +1,207 @@
+swagger: "2.0"
+info:
+  description: This microservice is in charge of the Animal management for Phets App. Developed using Python & MariaDB.
+  version: "1.0.0"
+  title: Microservice for Animals
+  license:
+    name: Software Architecture, 2019-II
+host: localhost:4043
+tags:
+- name: animal
+  description: Everything about Animals
+- name: animal-types
+  description: Operations to manage animal types
+schemes:
+- http
+paths:
+  /animals:
+    get:
+      tags:
+      - animal
+      summary: Get a list of all animals
+      operationId: getAnimals
+      produces:
+      - application/json
+      responses:
+        200:
+          description: Array with all animals stored.
+          schema:
+            type: array
+            items:
+              $ref: "#/definitions/Animal"
+    post:
+      tags:
+      - animal
+      summary: Add an animal
+      operationId: addAnimal
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      parameters:
+      - in: body
+        name: animal
+        description: Animal object with needed data to be added
+        required: true
+        schema:
+          $ref: "#/definitions/AnimalInput"
+      responses:
+        201:
+          description: When created succesfully replies the same object with id
+          schema:
+            $ref: '#/definitions/Animal'
+            
+  /aminals/{animalId}:
+    get:
+      tags:
+      - animal
+      summary: Find animal by ID
+      operationId: "getAnimalById"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "animalId"
+        in: "path"
+        description: ID of Animal to return
+        required: true
+        type: integer
+      responses:
+        200:
+          description: Animal object with the specified ID
+          schema:
+            $ref: "#/definitions/Animal"
+        204:
+          description: Invalid ID supplied
+          
+    put:
+      tags:
+      - animal
+      summary: Update an animal
+      operationId: updateAnimal
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      parameters:
+      - name: animalId
+        in: path
+        description: ID of Animal to udpate
+        required: true
+        type: integer
+      - in: body
+        name: animal
+        description: Animal object with data to be updated
+        required: true
+        schema:
+          $ref: "#/definitions/Animal"
+      responses:
+        200:
+          description: When updated succesfully replies the same object
+          schema:
+            $ref: '#/definitions/Animal'
+        204:
+          description: Invalid ID supplied
+
+    delete:
+      tags:
+      - animal
+      summary: "Delete an animal"
+      operationId: "deleteAnimal"
+      produces:
+      - application/json
+      parameters:
+      - name: animalId
+        in: path
+        description: Animal id to delete
+        required: true
+        type: integer
+      responses:
+        200:
+          description: Operation successfuly executed
+          schema:
+            $ref: "#/definitions/Animal"
+        204:
+          description: Invalid ID supplied
+        
+        
+  /animal-types:
+    get:
+      tags:
+      - animal-types
+      summary: Returns a list of all animal types
+      operationId: "getAnimalTypes"
+      produces:
+      - "application/json"
+      responses:
+        200:
+          schema:
+            $ref: "#/definitions/AnimalType"
+            
+definitions:
+  Animal:
+    type: object
+    required:
+    - id
+    - name
+    - user
+    - gender
+    - adoption
+    - animal_type
+    properties:
+      id:
+        type: integer
+      name:
+        type: string
+        example: Pucky
+      user:
+        type: string
+        example: lczapatac
+      breed:
+        type: string
+        example: Pug
+      gender:
+        type: boolean
+      adoption:
+        type: boolean
+      birthdate:
+        type: string
+        example: "2012-08-28"
+      animal_type:
+        $ref: "#/definitions/AnimalType"
+        
+  AnimalInput:
+    type: object
+    required:
+    - name
+    - user
+    - gender
+    - adoption
+    - animal_type
+    properties:
+      name:
+        type: string
+        example: Pucky
+      user:
+        type: string
+        example: lczapatac
+      breed:
+        type: string
+        example: Pug
+      gender:
+        type: boolean
+      adoption:
+        type: boolean
+      birthdate:
+        type: string
+        example: "2012-08-28"
+      animal_type:
+        $ref: "#/definitions/AnimalType"
+        
+  AnimalType:
+    type: object
+    properties:
+      id:
+        type: integer
+      value:
+        type: string
+        example: Perro
