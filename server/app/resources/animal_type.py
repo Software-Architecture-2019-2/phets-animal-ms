@@ -5,6 +5,7 @@ from app.service.animal_type import AnimalTypeService
 animal_type_schema = AnimalTypeSchema()
 animal_type_service = AnimalTypeService()
 
+
 class AnimalTypeResource(Resource):
     def get(self):
         animal_types = animal_type_service.getAll()

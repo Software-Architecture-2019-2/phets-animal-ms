@@ -1,0 +1,32 @@
+version: "2.1"
+services:
+  phets-animal-ms:
+    container_name: phets-animal-ms
+    build: .
+    ports:
+      - "4003:5000"
+    depends_on:
+      phets-animal-db:
+        condition: service_healthy
+    environment:
+      DATABASE_USER: animalUser
+      DATABASE_PASS: password
+      DATABASE_URI: 172.17.0.1:3003
+      DATABASE_NAME: animals
+  phets-animal-db:
+    image: mariadb:latest
+    container_name: phets-animal-db
+    environment:
+      MYSQL_ROOT_PASSWORD: animals123
+      MYSQL_DATABASE: animals
+      MYSQL_USER: animalUser
+      MYSQL_PASSWORD: password
+    ports:
+      - "3003:3306"
+    volumes:
+     - ${PWD}/mariadb:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "--silent"]
+      interval: 20s
+      timeout: 5s
+      retries: 15

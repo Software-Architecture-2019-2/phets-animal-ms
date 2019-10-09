@@ -1,6 +1,7 @@
 from app.model.animal import Animal
 from app import db
 
+
 class AnimalService:
     @staticmethod
     def getAll():
