@@ -134,6 +134,7 @@ paths:
       - "application/json"
       responses:
         200:
+          description: Succesful request
           schema:
             $ref: "#/definitions/AnimalType"
             
@@ -168,6 +169,14 @@ definitions:
         example: "2012-08-28"
       animal_type:
         $ref: "#/definitions/AnimalType"
+      media:
+        type: array
+        items:
+          type: string
+          example: [
+            "5e29a9a0-97b4-4111-be35-3c06fdef6974",
+            "1f52db6f-c694-4c58-8e4d-73e7b96a2538"
+          ]
         
   AnimalInput:
     type: object
@@ -196,6 +205,14 @@ definitions:
         example: "2012-08-28"
       animal_type:
         $ref: "#/definitions/AnimalType"
+      media:
+        type: array
+        items:
+          type: string
+          example: [
+            "5e29a9a0-97b4-4111-be35-3c06fdef6974",
+            "1f52db6f-c694-4c58-8e4d-73e7b96a2538"
+          ]
         
   AnimalType:
     type: object
