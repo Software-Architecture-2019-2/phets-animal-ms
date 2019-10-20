@@ -6,7 +6,7 @@ class AnimalMedia(db.Model):
     id = db.Column(db.String(36), primary_key=True)
     animal_id = db.Column(db.BigInteger, db.ForeignKey(
         'animal.id'), nullable=False)
-    animal = db.relationship("Animal", backref='media', lazy="subquery")
+    animal = db.relationship("Animal", backref='media', cascade="all,delete", lazy="subquery")
 
     def __repr__(self):
         return "<AnimalMedia(id='%d', animal.id='%d', animal.name='%s')>" % (
