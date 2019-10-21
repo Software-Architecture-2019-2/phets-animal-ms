@@ -2,6 +2,7 @@ version: "2.1"
 services:
   phets-animal-ms:
     container_name: phets-animal-ms
+    image: phetsunal/phets-animal-ms
     build: .
     ports:
       - "4003:5000"
