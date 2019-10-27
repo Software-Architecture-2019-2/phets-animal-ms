@@ -21,6 +21,7 @@ class AnimalService:
     def update(id, entity):
         saved = AnimalService.getById(id)
         if saved:
+            entity.id = id
             db.session.merge(entity)
             db.session.flush()
             db.session.commit()
