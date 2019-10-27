@@ -15,8 +15,15 @@ services:
       DATABASE_URI: 172.17.0.1:3003
       DATABASE_NAME: animals
   phets-animal-db:
-    image: mariadb:latest
+    image: mysql:5.7
     container_name: phets-animal-db
+    healthcheck:
+      test: "mysqlcheck -u$$MYSQL_USER -p$$MYSQL_PASSWORD $$MYSQL_DATABASE"
+      interval: 20s
+      timeout: 5s
+      retries: 15
+    volumes:
+     - phets-animal-volume:/var/lib/mysql
     environment:
       MYSQL_ROOT_PASSWORD: animals123
       MYSQL_DATABASE: animals
@@ -24,10 +31,6 @@ services:
       MYSQL_PASSWORD: password
     ports:
       - "3003:3306"
-    volumes:
-     - ${PWD}/mariadb:/var/lib/mysql
-    healthcheck:
-      test: ["CMD", "mysqladmin", "ping", "--silent"]
-      interval: 20s
-      timeout: 5s
-      retries: 15
+
+volumes:
+  phets-animal-volume:
