@@ -9,3 +9,12 @@ class AnimalType(db.Model):
     def __repr__(self):
         return "<AnimalType(id='%d', value='%s')>" % (
             self.id, self.value)
+
+@db.event.listens_for(AnimalType.__table__, 'after_create')
+def insertInitialValues(*args, **kwargs):
+    db.session.add(AnimalType(value='Perro'))
+    db.session.add(AnimalType(value='Gato'))
+    db.session.add(AnimalType(value='Pájaro'))
+    db.session.add(AnimalType(value='Conejo'))
+    db.session.add(AnimalType(value='Hamster'))
+    db.session.commit()
