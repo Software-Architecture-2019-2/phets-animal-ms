@@ -5,7 +5,7 @@ info:
   title: Microservice for Animals
   license:
     name: Software Architecture, 2019-II
-host: localhost:4043
+host: localhost:4003
 tags:
 - name: animal
   description: Everything about Animals
