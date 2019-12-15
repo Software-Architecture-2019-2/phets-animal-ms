@@ -12,7 +12,8 @@ services:
     environment:
       DATABASE_USER: animalUser
       DATABASE_PASS: password
-      DATABASE_URI: 172.17.0.1:3003
+      DATABASE_HOST: 172.17.0.1
+      DATABASE_PORT: 3003
       DATABASE_NAME: animals
       PORT: 4003
   phets-animal-db:
